@@ -72,7 +72,7 @@ function M.is_compatible_version(expected_version)
       expected_version,
       _ver
     )
-    vim.api.nvim_echo({ { msg } }, true, { err = true })
+    vim.api.nvim_echo({ { msg, 'ErrorMsg' } }, true, {})
   end
 
   return true
