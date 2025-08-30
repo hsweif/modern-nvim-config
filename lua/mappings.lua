@@ -1,6 +1,10 @@
 local keymap = vim.keymap
 local uv = vim.uv
 
+-- Set leader key to semicolon
+vim.g.mapleader = ";"
+vim.g.maplocalleader = ";"
+
 -- Save key strokes (now we do not need to press shift to enter command mode).
 keymap.set({ "n", "x" }, ";", ":")
 
@@ -16,6 +20,107 @@ keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" 
 
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
+
+-- Legacy key mappings to maintain old habits
+keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>', { desc = "Toggle file tree" })
+-- File tree (nvim-tree)
+keymap.set('n', '<leader>ff', ':NvimTreeFocus<cr>', { desc = "Focus file tree" })
+
+-- Telescope with legacy y prefix
+keymap.set('n', '<leader>yf', function() require('telescope.builtin').find_files {} end, { desc = "Find files" })
+keymap.set('n', '<leader>ys', function() require('telescope.builtin').live_grep {} end, { desc = "Live grep" })
+keymap.set('n', '<leader>yd', function() require('telescope.builtin').live_grep { search_dirs = { '.', '$GOPATH/pkg/mod/' } } end, { desc = "Grep Go modules" })
+keymap.set('n', '<F10>', function() require('telescope.builtin').git_files {} end, { desc = "Git files" })
+keymap.set('n', '<F11>', function() require('telescope.builtin').buffers {} end, { desc = "Buffers" })
+keymap.set({ 'n', 'i' }, '<C-p>', function() require('telescope.builtin').registers {} end, { desc = "Registers" })
+
+-- LSP with legacy l prefix
+keymap.set('n', '<leader>le', function() vim.diagnostic.open_float() end, { desc = "Line diagnostics" })
+keymap.set('n', '<leader>lE', function() vim.diagnostic.open_float({ scope = 'cursor' }) end, { desc = "Cursor diagnostics" })
+keymap.set('n', '<leader>lq', vim.diagnostic.setqflist, { desc = "Quickfix diagnostics" })
+keymap.set('n', '<leader>lk', vim.lsp.buf.hover, { desc = "Hover" })
+keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { desc = "Definition" })
+keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { desc = "Rename" })
+keymap.set('n', '<leader>lh', vim.lsp.buf.signature_help, { desc = "Signature help" })
+keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = "Code action" })
+keymap.set('n', '<leader>lf', vim.lsp.buf.format, { desc = "Format" })
+keymap.set('n', '<leader>lb', ':SymbolsOutline<cr>', { desc = "Symbols outline" })
+keymap.set('n', '<leader>lu', vim.lsp.buf.references, { desc = "References" })
+keymap.set('n', '<F12>', vim.lsp.buf.code_action, { desc = "Code action" })
+
+-- Git with legacy h prefix
+keymap.set('n', '<leader>hu', ':Gitsigns undo_stage_hunk<cr>', { desc = "Undo hunk" })
+keymap.set('n', '<leader>hn', ':Gitsigns next_hunk<cr>', { desc = "Next hunk" })
+keymap.set('n', '<leader>hc', ':Gitsigns preview_hunk<cr>', { desc = "Preview hunk" })
+keymap.set('n', '<leader>hr', ':Gitsigns reset_hunk<cr>', { desc = "Reset hunk" })
+keymap.set('n', '<leader>hR', ':Gitsigns reset_buffer', { desc = "Reset buffer" })
+keymap.set('n', '<leader>hb', ':Gitsigns blame_line<cr>', { desc = "Blame line" })
+keymap.set('n', '<leader>hd', ':Gitsigns diffthis<cr>', { desc = "Diff this" })
+keymap.set('n', '<leader>hs', ':<C-U>Gitsigns select_hunk<CR>', { desc = "Select hunk" })
+
+-- Window management with legacy w prefix (resolved conflict: w1 -> wo)
+keymap.set('n', '<leader>wo', '<c-w>o', { desc = "Only window" })
+keymap.set('n', '<leader>wx', ':x<cr>', { desc = "Close window" })
+keymap.set('n', '<leader>w2', ':sp<cr>', { desc = "Split horizontal" })
+keymap.set('n', '<leader>w3', ':vs<cr>', { desc = "Split vertical" })
+
+-- Window resize
+keymap.set('n', '<m-9>', '<c-w><', { desc = "Decrease width" })
+keymap.set('n', '<m-0>', '<c-w>>', { desc = "Increase width" })
+keymap.set('n', '<m-->', '<c-w>-', { desc = "Decrease height" })
+keymap.set('n', '<m-=>', '<c-w>+', { desc = "Increase height" })
+
+-- Tab navigation
+keymap.set('n', '<C-l>', ':tabprevious<cr>', { desc = "Previous tab" })
+keymap.set('n', '<C-h>', ':tabnext<cr>', { desc = "Next tab" })
+
+-- Terminal with legacy t prefix
+keymap.set('n', '<leader>tt', ':ToggleTerm direction=tab<cr>', { desc = "Terminal tab" })
+keymap.set('n', '<leader>tn', function() require('toggleterm.terminal').Terminal:new():toggle() end, { desc = "New terminal" })
+keymap.set('n', '<leader>tf', ':ToggleTerm direction=float<cr>', { desc = "Terminal float" })
+keymap.set('n', '<leader>th', ':ToggleTerm direction=horizontal<cr>', { desc = "Terminal horizontal" })
+keymap.set('n', '<leader>tv', ':ToggleTerm direction=vertical<cr>', { desc = "Terminal vertical" })
+
+-- Background toggle
+local function set_bg_light()
+    vim.cmd('set background=light')
+    local colors_name = vim.g.colors_name
+    vim.cmd('colorscheme shine')
+    vim.cmd('colorscheme ' .. colors_name)
+end
+
+local function set_bg_dark()
+    vim.cmd('set background=dark')
+    local colors_name = vim.g.colors_name
+    vim.cmd('colorscheme ron')
+    vim.cmd('colorscheme ' .. colors_name)
+end
+
+keymap.set('n', '<leader>vl', set_bg_light, { desc = "Light background" })
+keymap.set('n', '<leader>vd', set_bg_dark, { desc = "Dark background" })
+
+-- Insert mode escape
+keymap.set('i', 'jj', '<esc>', { desc = "Escape insert mode" })
+keymap.set('i', '<C-;>', '::', { desc = "Insert :: for C++/Rust" })
+
+-- Plugins
+keymap.set('n', '<leader>pi', ':Lazy install<cr>', { desc = "Install plugins" })
+keymap.set('n', '<leader>pc', ':Lazy clean<cr>', { desc = "Clean plugins" })
+keymap.set('n', '<leader>pm', ':Mason<cr>', { desc = "Mason" })
+keymap.set('n', '<leader>pM', ':MasonUpdate<cr>', { desc = "Mason update" })
+
+-- Search
+keymap.set('n', '<leader>sw', '/\\<lt>\\><left><left>', { desc = "Search word" })
+keymap.set('n', '<leader>sf', function() require('hop').hint_words() end, { desc = "Hop to word" })
+
+-- Debug
+keymap.set('n', '<leader>db', ':lua require"dap".toggle_breakpoint()<cr>', { desc = "Toggle breakpoint" })
+keymap.set('n', '<leader>dc', ':lua require"dap".continue()<cr>', { desc = "Continue debug" })
+
+-- Bookmarks
+keymap.set('n', '<leader>mk', ':BookmarkToggle<cr>', { desc = "Toggle bookmark" })
+keymap.set('n', '<leader>ma', ':BookmarkShowAll<cr>', { desc = "Show bookmarks" })
+
 
 -- Saves the file if modified and quit
 keymap.set("n", "<leader>q", "<cmd>x<cr>", { silent = true, desc = "quit current window" })
