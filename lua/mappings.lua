@@ -135,6 +135,17 @@ keymap.set('n', '<leader>sf', function() require('hop').hint_words() end, { desc
 keymap.set('n', '<leader>db', ':lua require"dap".toggle_breakpoint()<cr>', { desc = "Toggle breakpoint" })
 keymap.set('n', '<leader>dc', ':lua require"dap".continue()<cr>', { desc = "Continue debug" })
 
+-- DAP-UI specific mappings
+keymap.set('n', '<leader>du', function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
+keymap.set('n', '<leader>de', function() require("dapui").eval() end, { desc = "Eval expression under cursor" })
+keymap.set('v', '<leader>de', function() require("dapui").eval() end, { desc = "Eval visual selection" })
+keymap.set('n', '<leader>df', function() require("dapui").float_element("scopes", { enter = true }) end, { desc = "Float scopes" })
+keymap.set('n', '<leader>dB', function() require("dapui").float_element("breakpoints", { enter = true }) end, { desc = "Float breakpoints" })
+keymap.set('n', '<leader>dw', function() require("dapui").float_element("watches", { enter = true }) end, { desc = "Float watches" })
+keymap.set('n', '<leader>ds', function() require("dapui").float_element("stacks", { enter = true }) end, { desc = "Float stacks" })
+keymap.set('n', '<leader>dr', function() require("dapui").float_element("repl", { enter = true }) end, { desc = "Float repl" })
+keymap.set('n', '<leader>dC', function() require("dapui").float_element("console", { enter = true }) end, { desc = "Float console" })
+
 -- Bookmarks
 keymap.set('n', '<leader>mk', ':BookmarkToggle<cr>', { desc = "Toggle bookmark" })
 keymap.set('n', '<leader>ma', ':BookmarkShowAll<cr>', { desc = "Show bookmarks" })
