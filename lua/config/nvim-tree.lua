@@ -102,7 +102,11 @@ nvim_tree.setup {
   },
 }
 
-keymap.set("n", "<space>s", require("nvim-tree.api").tree.toggle, {
+keymap.set("n", "<C-n>", require("nvim-tree.api").tree.toggle, {
   silent = true,
   desc = "toggle nvim-tree",
+})
+keymap.set("n", "<leader>ff", require("nvim-tree.api").tree.focus, {
+  silent = true,
+  desc = "focus nvim-tree",
 })

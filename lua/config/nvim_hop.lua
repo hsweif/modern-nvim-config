@@ -16,6 +16,15 @@ keymap.set({ "n", "v", "o" }, "f", "", {
   desc = "nvim-hop char2",
 })
 
+-- Add word mode for legacy mapping
+keymap.set("n", "<leader>sf", function()
+  hop.hint_words()
+end, {
+  silent = true,
+  noremap = true,
+  desc = "Hop to word",
+})
+
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
