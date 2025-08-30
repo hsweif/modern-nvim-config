@@ -17,14 +17,16 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ["<Tab>"] = function(fallback)
+    -- Use Ctrl+Space for nvim-cmp completion (trae uses Tab)
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-j>"] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end,
-    ["<S-Tab>"] = function(fallback)
+    ["<C-k>"] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else

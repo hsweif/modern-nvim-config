@@ -92,4 +92,5 @@ function M.inside_git_repo()
   return true
 end
 
+
 return M
