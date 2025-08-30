@@ -20,6 +20,7 @@ local firenvim_not_active = function()
   return not vim.g.started_by_firenvim
 end
 
+
 local plugin_specs = {
   -- auto-completion engine
   { "hrsh7th/cmp-nvim-lsp", lazy = true },
@@ -34,6 +35,18 @@ local plugin_specs = {
     config = function()
       require("config.nvim-cmp")
     end,
+  },
+  -- in-house AI autocomplete
+  {
+    "https://code.byted.org/chenjiaqi.cposture/codeverse.vim.git",
+    name = "trae",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("config.trae")
+    end,
+    event = "VeryLazy",
   },
   -- {
   --   "saghen/blink.cmp",
@@ -170,6 +183,7 @@ local plugin_specs = {
   { "vague2k/vague.nvim", priority = 1000 },
   { "webhooked/kanso.nvim", priority = 1000 },
   { "zootedb0t/citruszest.nvim", priority = 1000 },
+  { "folke/tokyonight.nvim", priority = 1000 },
 
   -- plugins to provide nerdfont icons
   {
