@@ -335,8 +335,31 @@ local plugin_specs = {
   {
     "mfussenegger/nvim-dap",
     config = function()
-      -- Basic DAP configuration can be added here
+      require("config.dap")
     end,
+  },
+  -- Go debugging support
+  {
+    "leoluz/nvim-dap-go",
+    config = function()
+      require("config.dap-go")
+    end,
+    ft = "go",
+  },
+  -- Testing framework
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "fredrikaverpil/neotest-golang", -- Go support
+    },
+    config = function()
+      require("config.neotest")
+    end,
+    ft = "go",
   },
 
   -- Bookmarks

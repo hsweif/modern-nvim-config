@@ -69,13 +69,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
       }
     end)
     map("n", "<C-k>", vim.lsp.buf.signature_help)
-    map("n", "<space>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
-    map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+    map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "variable rename" })
+    map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP code action" })
     map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
     map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
     map("n", "<space>wl", function()
       vim.print(vim.lsp.buf.list_workspace_folders())
     end, { desc = "list workspace folder" })
+
+    -- Additional LSP navigation mappings from legacy config
+    map("n", "gD", vim.lsp.buf.declaration, { desc = "go to declaration" })
+    map("n", "gt", vim.lsp.buf.type_definition, { desc = "go to type definition" })
+    map("n", "gi", vim.lsp.buf.implementation, { desc = "go to implementation" })
+    map("n", "gr", vim.lsp.buf.references, { desc = "show references" })
+    map("n", "<space>f", vim.lsp.buf.format, { desc = "format buffer" })
+
+    -- Diagnostic navigation
+    map("n", "[d", function()
+      vim.diagnostic.goto_prev({ float = { border = "single" } })
+    end, { desc = "previous diagnostic" })
+    map("n", "]d", function()
+      vim.diagnostic.goto_next({ float = { border = "single" } })
+    end, { desc = "next diagnostic" })
 
     -- Set some key bindings conditional on server capabilities
     -- Disable ruff hover feature in favor of Pyright

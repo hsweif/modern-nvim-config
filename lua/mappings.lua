@@ -48,6 +48,24 @@ keymap.set('n', '<leader>lb', ':SymbolsOutline<cr>', { desc = "Symbols outline" 
 keymap.set('n', '<leader>lu', vim.lsp.buf.references, { desc = "References" })
 keymap.set('n', '<F12>', vim.lsp.buf.code_action, { desc = "Code action" })
 
+-- Unit testing with neotest (Go)
+keymap.set('n', '<leader>ur', function() require("neotest").run.run() end, { desc = "Run nearest test" })
+keymap.set('n', '<leader>uf', function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run test file" })
+keymap.set('n', '<leader>ud', function() require("neotest").run.run({strategy = "dap"}) end, { desc = "Debug nearest test" })
+keymap.set('n', '<leader>us', function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
+keymap.set('n', '<leader>uo', function() require("neotest").output.open({ enter = true }) end, { desc = "Show test output" })
+keymap.set('n', '<leader>ua', function() require("neotest").run.run(vim.fn.getcwd()) end, { desc = "Run all tests in project" })
+keymap.set('n', '<leader>ul', function() require("neotest").run.run_last() end, { desc = "Run last test" })
+keymap.set('n', '<leader>ut', function() require("neotest").run.stop() end, { desc = "Stop test run" })
+
+-- Debugging with nvim-dap
+keymap.set('n', '<leader>db', function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+keymap.set('n', '<leader>dc', function() require("dap").continue() end, { desc = "Start/continue debugging" })
+keymap.set('n', '<leader>di', function() require("dap").step_into() end, { desc = "Step into" })
+keymap.set('n', '<leader>do', function() require("dap").step_over() end, { desc = "Step over" })
+keymap.set('n', '<leader>dO', function() require("dap").step_out() end, { desc = "Step out" })
+keymap.set('n', '<leader>dr', function() require("dap").repl.open() end, { desc = "Open REPL" })
+
 -- Git with legacy h prefix
 keymap.set('n', '<leader>hu', ':Gitsigns undo_stage_hunk<cr>', { desc = "Undo hunk" })
 keymap.set('n', '<leader>hn', ':Gitsigns next_hunk<cr>', { desc = "Next hunk" })
