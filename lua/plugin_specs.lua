@@ -27,7 +27,6 @@ local plugin_specs = {
   { "hrsh7th/cmp-buffer", lazy = true },
   { "hrsh7th/cmp-omni", lazy = true },
   { "hrsh7th/cmp-cmdline", lazy = true },
-  { "quangnguyen30192/cmp-nvim-ultisnips", lazy = true },
   {
     "hrsh7th/nvim-cmp",
     name = "nvim-cmp",
@@ -51,6 +50,21 @@ local plugin_specs = {
     "neovim/nvim-lspconfig",
     config = function()
       require("config.lsp")
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    config = true,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    config = function()
+      require("mason-lspconfig").setup()
     end,
   },
   {
@@ -271,14 +285,6 @@ local plugin_specs = {
     cmd = "Vista",
   },
 
-  -- Snippet engine and snippet template
-  {
-    "SirVer/ultisnips",
-    dependencies = {
-      "honza/vim-snippets",
-    },
-    event = "InsertEnter",
-  },
 
   -- Automatic insertion and deletion of a pair of characters
   {
@@ -301,6 +307,40 @@ local plugin_specs = {
 
   -- Show undo history visually
   { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } },
+
+  -- Terminal integration
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = function()
+      require("toggleterm").setup()
+    end,
+  },
+
+  -- Debug adapter protocol
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      -- Basic DAP configuration can be added here
+    end,
+  },
+
+  -- Bookmarks
+  {
+    "MattesGroeger/vim-bookmarks",
+    config = function()
+      vim.g.bookmark_sign = "⚑"
+      vim.g.bookmark_highlight_lines = 1
+    end,
+  },
+
+  -- Symbols outline
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require("symbols-outline").setup()
+    end,
+  },
 
   -- Manage your yank history
   {
@@ -531,7 +571,7 @@ local plugin_specs = {
   -- file explorer
   {
     "nvim-tree/nvim-tree.lua",
-    keys = { "<space>s" },
+    keys = { "<C-n>" },
     config = function()
       require("config.nvim-tree")
     end,
