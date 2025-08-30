@@ -6,7 +6,6 @@ require("cmp_nvim_lsp")
 require("cmp_path")
 require("cmp_buffer")
 require("cmp_omni")
-require("cmp_nvim_ultisnips")
 require("cmp_cmdline")
 
 local MiniIcons = require("mini.icons")
@@ -14,8 +13,7 @@ local MiniIcons = require("mini.icons")
 cmp.setup {
   snippet = {
     expand = function(args)
-      -- For `ultisnips` user.
-      vim.fn["UltiSnips#Anon"](args.body)
+      -- No snippet engine configured
     end,
   },
   mapping = cmp.mapping.preset.insert {
@@ -41,7 +39,6 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" }, -- For nvim-lsp
-    { name = "ultisnips" }, -- For ultisnips user.
     { name = "path" }, -- for path completion
     { name = "buffer", keyword_length = 2 }, -- for buffer word completion
   },

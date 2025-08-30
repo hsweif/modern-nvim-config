@@ -122,27 +122,21 @@ vim.lsp.config("*", {
   },
 })
 
--- A mapping from lsp server name to the executable name
+-- Use Mason for LSP server management
+local mason_registry = require("mason-registry")
+
 local enabled_lsp_servers = {
-  pyright = "delance-langserver",
-  ruff = "ruff",
-  lua_ls = "lua-language-server",
-  -- ltex = "ltex-ls",
-  -- clangd = "clangd",
-  vimls = "vim-language-server",
-  bashls = "bash-language-server",
-  yamlls = "yaml-language-server",
+  "pyright",
+  "ruff",
+  "lua_ls",
+  -- "ltex",
+  -- "clangd",
+  "vimls",
+  "bashls",
+  "yamlls",
 }
 
-for server_name, lsp_executable in pairs(enabled_lsp_servers) do
-  if utils.executable(lsp_executable) then
-    vim.lsp.enable(server_name)
-  else
-    local msg = string.format(
-      "Executable '%s' for server '%s' not found! Server will not be enabled",
-      lsp_executable,
-      server_name
-    )
-    vim.notify(msg, vim.log.levels.WARN, { title = "Nvim-config" })
-  end
+-- Enable all configured LSP servers
+for _, server_name in ipairs(enabled_lsp_servers) do
+  vim.lsp.enable(server_name)
 end
