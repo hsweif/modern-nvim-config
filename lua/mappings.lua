@@ -24,19 +24,22 @@ keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save bu
 -- Legacy key mappings to maintain old habits
 keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>', { desc = "Toggle file tree" })
 -- File tree (nvim-tree)
-keymap.set('n', '<leader>ff', ':NvimTreeFocus<cr>', { desc = "Focus file tree" })
+keymap.set('n', '<leader>ff', ':NvimTreeFindFile<cr>', { desc = "Find current file in tree" })
 
 -- Telescope with legacy y prefix
 keymap.set('n', '<leader>yf', function() require('telescope.builtin').find_files {} end, { desc = "Find files" })
 keymap.set('n', '<leader>ys', function() require('telescope.builtin').live_grep {} end, { desc = "Live grep" })
-keymap.set('n', '<leader>yd', function() require('telescope.builtin').live_grep { search_dirs = { '.', '$GOPATH/pkg/mod/' } } end, { desc = "Grep Go modules" })
+keymap.set('n', '<leader>yd',
+    function() require('telescope.builtin').live_grep { search_dirs = { '.', '$GOPATH/pkg/mod/' } } end,
+    { desc = "Grep Go modules" })
 keymap.set('n', '<F10>', function() require('telescope.builtin').git_files {} end, { desc = "Git files" })
 keymap.set('n', '<F11>', function() require('telescope.builtin').buffers {} end, { desc = "Buffers" })
 keymap.set({ 'n', 'i' }, '<C-p>', function() require('telescope.builtin').registers {} end, { desc = "Registers" })
 
 -- LSP with legacy l prefix
 keymap.set('n', '<leader>le', function() vim.diagnostic.open_float() end, { desc = "Line diagnostics" })
-keymap.set('n', '<leader>lE', function() vim.diagnostic.open_float({ scope = 'cursor' }) end, { desc = "Cursor diagnostics" })
+keymap.set('n', '<leader>lE', function() vim.diagnostic.open_float({ scope = 'cursor' }) end,
+    { desc = "Cursor diagnostics" })
 keymap.set('n', '<leader>lq', vim.diagnostic.setqflist, { desc = "Quickfix diagnostics" })
 keymap.set('n', '<leader>lk', vim.lsp.buf.hover, { desc = "Hover" })
 keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { desc = "Definition" })
@@ -51,10 +54,13 @@ keymap.set('n', '<F12>', vim.lsp.buf.code_action, { desc = "Code action" })
 -- Unit testing with neotest (Go)
 keymap.set('n', '<leader>ur', function() require("neotest").run.run() end, { desc = "Run nearest test" })
 keymap.set('n', '<leader>uf', function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run test file" })
-keymap.set('n', '<leader>ud', function() require("neotest").run.run({strategy = "dap"}) end, { desc = "Debug nearest test" })
+keymap.set('n', '<leader>ud', function() require("neotest").run.run({ strategy = "dap" }) end,
+    { desc = "Debug nearest test" })
 keymap.set('n', '<leader>us', function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
-keymap.set('n', '<leader>uo', function() require("neotest").output.open({ enter = true }) end, { desc = "Show test output" })
-keymap.set('n', '<leader>ua', function() require("neotest").run.run(vim.fn.getcwd()) end, { desc = "Run all tests in project" })
+keymap.set('n', '<leader>uo', function() require("neotest").output.open({ enter = true }) end,
+    { desc = "Show test output" })
+keymap.set('n', '<leader>ua', function() require("neotest").run.run(vim.fn.getcwd()) end,
+    { desc = "Run all tests in project" })
 keymap.set('n', '<leader>ul', function() require("neotest").run.run_last() end, { desc = "Run last test" })
 keymap.set('n', '<leader>ut', function() require("neotest").run.stop() end, { desc = "Stop test run" })
 
@@ -94,7 +100,8 @@ keymap.set('n', '<C-h>', ':tabnext<cr>', { desc = "Next tab" })
 
 -- Terminal with legacy t prefix
 keymap.set('n', '<leader>tt', ':ToggleTerm direction=tab<cr>', { desc = "Terminal tab" })
-keymap.set('n', '<leader>tn', function() require('toggleterm.terminal').Terminal:new():toggle() end, { desc = "New terminal" })
+keymap.set('n', '<leader>tn', function() require('toggleterm.terminal').Terminal:new():toggle() end,
+    { desc = "New terminal" })
 keymap.set('n', '<leader>tf', ':ToggleTerm direction=float<cr>', { desc = "Terminal float" })
 keymap.set('n', '<leader>th', ':ToggleTerm direction=horizontal<cr>', { desc = "Terminal horizontal" })
 keymap.set('n', '<leader>tv', ':ToggleTerm direction=vertical<cr>', { desc = "Terminal vertical" })
@@ -139,12 +146,18 @@ keymap.set('n', '<leader>dc', ':lua require"dap".continue()<cr>', { desc = "Cont
 keymap.set('n', '<leader>du', function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
 keymap.set('n', '<leader>de', function() require("dapui").eval() end, { desc = "Eval expression under cursor" })
 keymap.set('v', '<leader>de', function() require("dapui").eval() end, { desc = "Eval visual selection" })
-keymap.set('n', '<leader>df', function() require("dapui").float_element("scopes", { enter = true }) end, { desc = "Float scopes" })
-keymap.set('n', '<leader>dB', function() require("dapui").float_element("breakpoints", { enter = true }) end, { desc = "Float breakpoints" })
-keymap.set('n', '<leader>dw', function() require("dapui").float_element("watches", { enter = true }) end, { desc = "Float watches" })
-keymap.set('n', '<leader>ds', function() require("dapui").float_element("stacks", { enter = true }) end, { desc = "Float stacks" })
-keymap.set('n', '<leader>dr', function() require("dapui").float_element("repl", { enter = true }) end, { desc = "Float repl" })
-keymap.set('n', '<leader>dC', function() require("dapui").float_element("console", { enter = true }) end, { desc = "Float console" })
+keymap.set('n', '<leader>df', function() require("dapui").float_element("scopes", { enter = true }) end,
+    { desc = "Float scopes" })
+keymap.set('n', '<leader>dB', function() require("dapui").float_element("breakpoints", { enter = true }) end,
+    { desc = "Float breakpoints" })
+keymap.set('n', '<leader>dw', function() require("dapui").float_element("watches", { enter = true }) end,
+    { desc = "Float watches" })
+keymap.set('n', '<leader>ds', function() require("dapui").float_element("stacks", { enter = true }) end,
+    { desc = "Float stacks" })
+keymap.set('n', '<leader>dr', function() require("dapui").float_element("repl", { enter = true }) end,
+    { desc = "Float repl" })
+keymap.set('n', '<leader>dC', function() require("dapui").float_element("console", { enter = true }) end,
+    { desc = "Float console" })
 
 -- Bookmarks
 keymap.set('n', '<leader>mk', ':BookmarkToggle<cr>', { desc = "Toggle bookmark" })
@@ -159,40 +172,40 @@ keymap.set("n", "<leader>Q", "<cmd>qa!<cr>", { silent = true, desc = "quit nvim"
 
 -- Close location list or quickfix list if they are present, see https://superuser.com/q/355325/736190
 keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
-  silent = true,
-  desc = "close qf and location list",
+    silent = true,
+    desc = "close qf and location list",
 })
 
 -- Delete a buffer, without closing the window, see https://stackoverflow.com/q/4465095/6064933
 keymap.set("n", [[\d]], "<cmd>bprevious <bar> bdelete #<cr>", {
-  silent = true,
-  desc = "delete current buffer",
+    silent = true,
+    desc = "delete current buffer",
 })
 
 keymap.set("n", [[\D]], function()
-  local buf_ids = vim.api.nvim_list_bufs()
-  local cur_buf = vim.api.nvim_win_get_buf(0)
+    local buf_ids = vim.api.nvim_list_bufs()
+    local cur_buf = vim.api.nvim_win_get_buf(0)
 
-  for _, buf_id in pairs(buf_ids) do
-    -- do not Delete unlisted buffers, which may lead to unexpected errors
-    if vim.api.nvim_get_option_value("buflisted", { buf = buf_id }) and buf_id ~= cur_buf then
-      vim.api.nvim_buf_delete(buf_id, { force = true })
+    for _, buf_id in pairs(buf_ids) do
+        -- do not Delete unlisted buffers, which may lead to unexpected errors
+        if vim.api.nvim_get_option_value("buflisted", { buf = buf_id }) and buf_id ~= cur_buf then
+            vim.api.nvim_buf_delete(buf_id, { force = true })
+        end
     end
-  end
 end, {
-  desc = "delete other buffers",
+    desc = "delete other buffers",
 })
 
 -- Insert a blank line below or above current line (do not move the cursor),
 -- see https://stackoverflow.com/a/16136133/6064933
 keymap.set("n", "<space>o", "printf('m`%so<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line below",
+    expr = true,
+    desc = "insert line below",
 })
 
 keymap.set("n", "<space>O", "printf('m`%sO<ESC>``', v:count1)", {
-  expr = true,
-  desc = "insert line above",
+    expr = true,
+    desc = "insert line above",
 })
 
 -- Move the cursor based on physical lines, not the actual lines.
@@ -216,25 +229,25 @@ keymap.set("x", ">", ">gv")
 
 -- Edit and reload nvim config file quickly
 keymap.set("n", "<leader>ev", "<cmd>tabnew $MYVIMRC <bar> tcd %:h<cr>", {
-  silent = true,
-  desc = "open init.lua",
+    silent = true,
+    desc = "open init.lua",
 })
 
 keymap.set("n", "<leader>sv", function()
-  vim.cmd([[
+    vim.cmd([[
       update $MYVIMRC
       source $MYVIMRC
     ]])
-  vim.notify("Nvim config successfully reloaded!", vim.log.levels.INFO, { title = "nvim-config" })
+    vim.notify("Nvim config successfully reloaded!", vim.log.levels.INFO, { title = "nvim-config" })
 end, {
-  silent = true,
-  desc = "reload init.lua",
+    silent = true,
+    desc = "reload init.lua",
 })
 
 -- Reselect the text that has just been pasted, see also https://stackoverflow.com/a/4317090/6064933.
 keymap.set("n", "<leader>v", "printf('`[%s`]', getregtype()[0])", {
-  expr = true,
-  desc = "reselect last pasted area",
+    expr = true,
+    desc = "reselect last pasted area",
 })
 
 -- Always use very magic mode for searching
@@ -285,10 +298,10 @@ keymap.set("x", "p", '"_c<Esc>p')
 
 -- Go to a certain buffer
 keymap.set("n", "gb", '<cmd>call buf_utils#GoToBuffer(v:count, "forward")<cr>', {
-  desc = "go to buffer (forward)",
+    desc = "go to buffer (forward)",
 })
 keymap.set("n", "gB", '<cmd>call buf_utils#GoToBuffer(v:count, "backward")<cr>', {
-  desc = "go to buffer (backward)",
+    desc = "go to buffer (backward)",
 })
 
 -- Switch windows
@@ -305,28 +318,28 @@ keymap.set({ "x", "o" }, "iB", ":<C-U>call text_obj#Buffer()<cr>", { desc = "buf
 
 -- Do not move my cursor when joining lines.
 keymap.set("n", "J", function()
-  vim.cmd([[
+    vim.cmd([[
       normal! mzJ`z
       delmarks z
     ]])
 end, {
-  desc = "join lines without moving cursor",
+    desc = "join lines without moving cursor",
 })
 
 keymap.set("n", "gJ", function()
-  -- we must use `normal!`, otherwise it will trigger recursive mapping
-  vim.cmd([[
+    -- we must use `normal!`, otherwise it will trigger recursive mapping
+    vim.cmd([[
       normal! mzgJ`z
       delmarks z
     ]])
 end, {
-  desc = "join lines without moving cursor",
+    desc = "join lines without moving cursor",
 })
 
 -- Break inserted text into smaller undo units when we insert some punctuation chars.
 local undo_ch = { ",", ".", "!", "?", ";", ":" }
 for _, ch in ipairs(undo_ch) do
-  keymap.set("i", ch, ch .. "<c-g>u")
+    keymap.set("i", ch, ch .. "<c-g>u")
 end
 
 -- insert semicolon in the end
@@ -343,40 +356,40 @@ keymap.set("c", "<C-A>", "<HOME>")
 keymap.set("i", "<C-D>", "<DEL>")
 
 keymap.set("n", "<leader>cb", function()
-  local cnt = 0
-  local blink_times = 7
-  local timer = uv.new_timer()
-  if timer == nil then
-    return
-  end
+    local cnt = 0
+    local blink_times = 7
+    local timer = uv.new_timer()
+    if timer == nil then
+        return
+    end
 
-  timer:start(
-    0,
-    100,
-    vim.schedule_wrap(function()
-      vim.cmd([[
+    timer:start(
+        0,
+        100,
+        vim.schedule_wrap(function()
+            vim.cmd([[
       set cursorcolumn!
       set cursorline!
     ]])
 
-      if cnt == blink_times then
-        timer:close()
-      end
+            if cnt == blink_times then
+                timer:close()
+            end
 
-      cnt = cnt + 1
-    end)
-  )
+            cnt = cnt + 1
+        end)
+    )
 end, { desc = "show cursor" })
 
 keymap.set("n", "q", function()
-  vim.print("q is remapped to Q in Normal mode!")
+    vim.print("q is remapped to Q in Normal mode!")
 end)
 keymap.set("n", "Q", "q", {
-  desc = "Record macro",
+    desc = "Record macro",
 })
 
 keymap.set("n", "<Esc>", function()
-  vim.cmd("fclose!")
+    vim.cmd("fclose!")
 end, {
-  desc = "close floating win",
+    desc = "close floating win",
 })
