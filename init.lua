@@ -11,6 +11,14 @@
 -- StackOverflow: https://stackoverflow.com/users/6064933/jdhao
 vim.loader.enable()
 
+-- Configure trae to work with nvim-cmp
+-- Disable trae built-in autocompletion
+vim.g.trae_disable_autocompletion = true
+-- Disable trae built-in tab mapping
+vim.g.trae_no_map_tab = true
+-- Disable trae built-in completion mapping
+vim.g.trae_disable_bindings = true
+
 local utils = require("utils")
 
 local expected_version = "0.11.3"
